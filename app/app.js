@@ -1,6 +1,6 @@
 const LANES = [['fasttrack', 'Fast-track estimate'], ['glass', 'Glass partner'], ['roadside', 'Roadside assist'], ['bodyshop', 'Body shop'], ['totalloss', 'Total-loss desk'], ['fraud', 'Fraud check'], ['adjuster', 'Adjuster review']];
 const $ = selector => document.querySelector(selector);
-let claims = [], selected, spent = 0, busy = false;
+let claims = [], selected, spent = 0, busy = false, justTriaged;
 const errors = new Map();
 const fast = new URLSearchParams(location.search).has('fast');
 
@@ -31,12 +31,14 @@ function render() {
     row.type = 'button'; row.dataset.testid = 'claim-row'; row.dataset.id = claim.id;
     row.append(el('strong', '', claim.id), el('span', '', claim.customer), el('small', '', claim.vehicle), el('p', '', claim.description), el('em', claim.result ? 'status done' : errors.has(claim.id) ? 'status error' : 'status', claim.result ? 'Triaged' : errors.has(claim.id) ? 'Error' : 'Pending'));
     row.onclick = () => { selected = claim.id; render(); };
-    queue.append(row);
+    queue.append(row); if (claim.id === current?.id && busy) row.scrollIntoView({ block: 'nearest' });
   }
   const detail = $('#claim-detail'); detail.replaceChildren();
   if (current) {
-    detail.append(el('small', '', current.id), el('h1', '', current.vehicle), el('p', 'customer', current.customer));
-    const frame = el('div', 'photo-frame');
+    const head = el('div', 'detail-head'); const title = el('div'); title.append(el('small', '', current.id), el('h1', '', current.vehicle), el('p', 'customer', current.customer)); head.append(title);
+    if (current.result) { const tag = el('span', `lane-tag lane-${current.result.lane}`, LANES.find(([key]) => key === current.result.lane)?.[1] || current.result.lane); head.append(tag); }
+    detail.append(head);
+    const wrap = el('div', 'photo-wrap'); const frame = el('div', 'photo-frame'); wrap.append(frame);
     const image = el('img'); image.src = photoPath(current.photo); image.alt = `Damage photo for ${current.id}`;
     frame.append(image);
     const box = current.result?.box;
@@ -45,30 +47,30 @@ function render() {
       Object.assign(overlay.style, { top: `${box.top * 100}%`, left: `${box.left * 100}%`, width: `${(box.right - box.left) * 100}%`, height: `${(box.bottom - box.top) * 100}%` });
       overlay.append(el('span', '', `${current.result.damage || 'damage'} ${percent(current.result.confidence)}`)); frame.append(overlay);
     }
-    detail.append(frame, el('small', '', 'CUSTOMER STORY'), el('p', 'story', current.description));
+    const story = el('div', 'story'); story.append(el('small', '', 'CUSTOMER STORY'), el('p', '', `“${current.description}”`)); detail.append(wrap, story);
   }
   const decision = $('#decision'); decision.replaceChildren();
   if (errors.has(current?.id)) decision.append(el('div', 'inline-error', errors.get(current.id)));
   else if (current?.result) {
     const result = current.result;
-    decision.append(el('small', '', 'JEV DECISION'), el('h2', '', LANES.find(([key]) => key === result.lane)?.[1] || result.lane), el('p', 'reason', result.reason));
+    decision.className = `panel decision lane-${result.lane}`; decision.append(el('small', '', 'JEV DECISION'), el('h2', '', LANES.find(([key]) => key === result.lane)?.[1] || result.lane), el('p', 'reason', result.reason));
     const evidence = el('div', 'evidence');
     for (const [label, value] of [['Damage', `${result.damage || 'Unknown'} · ${percent(result.confidence)}`], ['Severity', typeof result.severity === 'number' ? `${result.severity.toFixed(2)} / 3` : '—'], ['Photo matches story', percent(result.match)], ['Stock image', percent(result.stock)], ['Latency', current.latencyMs == null ? '—' : `${Math.round(current.latencyMs)} ms`], ['Cost', current.costUsd == null ? '—' : `$${current.costUsd.toFixed(6)}`]]) { const row = el('div', 'evidence-row'); row.append(el('span', '', label), el('strong', '', value)); evidence.append(row); }
     const bar = el('div', 'confidence-track'); const fill = el('div', 'confidence-fill'); fill.style.width = `${Math.max(0, Math.min(100, result.confidence * 100 || 0))}%`; bar.append(fill); decision.append(evidence, bar);
-  } else decision.append(el('small', '', 'JEV DECISION'), el('h2', '', 'Awaiting triage'), el('p', 'reason', 'Select Triage all to route pending claims.'));
+  } else decision.className = 'panel decision', decision.append(el('small', '', 'JEV DECISION'), el('h2', '', 'Awaiting triage'), el('p', 'reason', 'Select Triage all to route pending claims.'));
   const lanes = $('#lanes'); lanes.replaceChildren();
   for (const [key, label] of LANES) {
     const routed = triaged.filter(claim => claim.result.lane === key);
-    const lane = el('div', 'lane'); lane.dataset.testid = `lane-${key}`;
+    const lane = el('div', `lane lane-${key}`); lane.dataset.testid = `lane-${key}`;
     const head = el('div', 'lane-head'); head.append(el('strong', '', label), el('b', '', routed.length)); lane.append(head);
-    for (const claim of routed) { const chip = el('button', 'lane-chip', claim.id); chip.dataset.testid = 'lane-chip'; chip.onclick = () => { selected = claim.id; render(); }; lane.append(chip); }
+    for (const claim of routed) { const chip = el('button', `lane-chip${claim.id === justTriaged ? ' new' : ''}`, claim.id); chip.dataset.testid = 'lane-chip'; chip.onclick = () => { selected = claim.id; render(); }; lane.append(chip); }
     lanes.append(lane);
   }
 }
 async function triage(claim) {
   try {
     const data = await api(`/api/claims/${encodeURIComponent(claim.id)}/triage`, { method: 'POST' });
-    Object.assign(claim, data); spent = data.spentUsd; errors.delete(claim.id);
+    Object.assign(claim, data); spent = data.spentUsd; errors.delete(claim.id); justTriaged = claim.id;
   } catch (error) { errors.set(claim.id, error.message); }
   selected = claim.id; render();
 }

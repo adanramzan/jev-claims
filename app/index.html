@@ -15,8 +15,8 @@
   </header>
   <main>
     <aside class="queue panel"><div class="panel-head"><div><small>INBOX</small><h2>Claims queue</h2></div><button id="triage-all" data-testid="triage-all">Triage all</button></div><div id="queue-list"></div></aside>
-    <section class="detail"><div id="claim-detail" class="panel"></div><div id="decision" data-testid="decision" class="panel decision"></div></section>
-    <aside class="new panel"><small>NEW INTAKE</small><h2>New claim</h2><form id="new-claim-form" data-testid="new-claim-form"><label for="description">Customer's story</label><textarea id="description" name="description" maxlength="500" required placeholder="What happened to the car?"></textarea><label for="photo">Damage photo</label><input id="photo" name="photo" type="file" accept="image/*" required><button type="submit">Submit claim</button></form></aside>
+    <section id="claim-detail" class="detail panel"></section>
+    <aside class="side"><div id="decision" data-testid="decision" class="panel decision"></div><div class="new panel"><small>NEW INTAKE</small><h2>New claim</h2><form id="new-claim-form" data-testid="new-claim-form"><label for="description">Customer's story</label><textarea id="description" name="description" maxlength="500" required placeholder="What happened to the car?"></textarea><label for="photo">Damage photo</label><input id="photo" name="photo" type="file" accept="image/*" required><button type="submit">Submit claim</button></form></div></aside>
     <section class="board panel"><div class="panel-head"><div><small>ROUTING</small><h2>Lane board</h2></div><span>Live decisions</span></div><div id="lanes" class="lanes"></div></section>
   </main>
 </body>
