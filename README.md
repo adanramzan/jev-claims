@@ -2,7 +2,6 @@
 
 First-notice-of-loss triage for car insurance: one photo and a short customer story become a routing decision in under a second.
 
-![Jev Claims desk demo](media/demo.gif)
 
 ## What it does
 
