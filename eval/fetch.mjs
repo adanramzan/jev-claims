@@ -19,7 +19,12 @@ export async function fetchDataset() {
   while (offset < total && Object.values(counts).some(count => count < 10)) {
     const url = new URL('https://datasets-server.huggingface.co/rows');
     for (const [key, value] of Object.entries({ dataset: 'gigwegbe/damaged-car-dataset-annotated', config: 'default', split: 'train', offset, length: 100 })) url.searchParams.set(key, value);
-    const response = await fetch(url, { headers });
+    let response;
+    for (let attempt = 1; ; attempt++) { // the datasets server returns the odd 502
+      response = await fetch(url, { headers });
+      if (response.ok || attempt === 4) break;
+      await new Promise(resolve => setTimeout(resolve, 2000 * attempt));
+    }
     if (!response.ok) throw new Error(`Rows API HTTP ${response.status}`);
     const page = await response.json();
     total = page.num_rows_total;
