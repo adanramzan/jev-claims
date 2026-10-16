@@ -29,14 +29,17 @@ export function claimFor(cls, index) {
   const position = CLASSES.indexOf(cls);
   if (position < 0) throw new Error(`Unknown class: ${cls}`);
   const matched = index % 3 !== 2;
-  return { text: STORIES[matched ? cls : CLASSES[(position + 1) % CLASSES.length]], matched };
+  // +3 pairs each class with a visibly different one (dent↔glass, scratch↔lamp, crack↔tyre)
+  return { text: STORIES[matched ? cls : CLASSES[(position + 3) % CLASSES.length]], matched };
 }
 const pct = (n, d) => d ? 100 * n / d : 0;
 const percentile = (sorted, p) => sorted.length ? sorted[Math.ceil(p * sorted.length) - 1] : 0;
-export function summarise(rows) {
+// Routing accuracy is scored on claims whose story matches the photo; mismatched ones are scored by the fraud rate.
+export function summarise(allRows) {
+  const rows = allRows.filter(row => row.matched !== false);
   const n = rows.length;
   const correct = rows.filter(row => row.correct).length;
-  const boxRows = rows.filter(row => row.boxHit !== null && row.boxHit !== undefined);
+  const boxRows = allRows.filter(row => row.boxHit !== null && row.boxHit !== undefined);
   const coverage = [0.6, 0.8, 0.9].map(threshold => {
     const selected = rows.filter(row => row.confidence >= threshold);
     return { threshold, n: selected.length, coveragePct: pct(selected.length, n), accuracyPct: pct(selected.filter(row => row.correct).length, selected.length) };
@@ -49,10 +52,10 @@ export function summarise(rows) {
     return { cls, n: group.length, correct: group.filter(row => row.correct).length, accuracyPct: pct(group.filter(row => row.correct).length, group.length), topLane };
   });
   const mismatch = [false, true].map(matched => {
-    const group = rows.filter(row => row.matched === matched);
+    const group = allRows.filter(row => row.matched === matched);
     return { matched, n: group.length, fraudRatePct: pct(group.filter(row => row.lane === 'fraud').length, group.length) };
   });
-  const latency = rows.map(row => row.latencyMs).filter(Number.isFinite).sort((a, b) => a - b);
-  const costUsd = rows.reduce((sum, row) => sum + (row.costUsd || 0), 0);
-  return { n, correct, accuracyPct: pct(correct, n), boxHitPct: pct(boxRows.filter(row => row.boxHit).length, boxRows.length), coverage, perClass, mismatch, latencyP50Ms: percentile(latency, 0.5), latencyP95Ms: percentile(latency, 0.95), costUsd, costPer1000Usd: n ? costUsd * 1000 / n : 0 };
+  const latency = allRows.map(row => row.latencyMs).filter(Number.isFinite).sort((a, b) => a - b);
+  const costUsd = allRows.reduce((sum, row) => sum + (row.costUsd || 0), 0);
+  return { n, correct, accuracyPct: pct(correct, n), boxHitPct: pct(boxRows.filter(row => row.boxHit).length, boxRows.length), coverage, perClass, mismatch, latencyP50Ms: percentile(latency, 0.5), latencyP95Ms: percentile(latency, 0.95), costUsd, total: allRows.length, costPer1000Usd: allRows.length ? costUsd * 1000 / allRows.length : 0 };
 }

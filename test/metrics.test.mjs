@@ -7,6 +7,7 @@ test('families and claim texts cover all six labels', () => {
   assert.equal(routeFamily('tire flat'), 'roadside');
   for (const cls of CLASSES) {
     assert.equal(claimFor(cls, 0).matched, true);
+    assert.equal(claimFor(cls, 2).text, claimFor(CLASSES[(CLASSES.indexOf(cls) + 3) % 6], 0).text, 'mismatch uses a visibly different class');
     assert.equal(claimFor(cls, 2).matched, false);
     assert.notEqual(claimFor(cls, 0).text, claimFor(cls, 2).text);
   }
@@ -23,8 +24,8 @@ test('summary calculates coverage, class, fraud, latency, and cost', () => {
     { cls: 'dent', lane: 'bodyshop', correct: true, confidence: .9, matched: true, boxHit: true, latencyMs: 10, costUsd: .1 },
     { cls: 'dent', lane: 'fraud', correct: false, confidence: .5, matched: false, boxHit: false, latencyMs: 20, costUsd: .2 }
   ]);
-  assert.equal(s.accuracyPct, 50);
-  assert.equal(s.coverage[0].coveragePct, 50);
+  assert.equal(s.accuracyPct, 100, 'routing accuracy only counts claims whose story matches the photo');
+  assert.equal(s.coverage[0].coveragePct, 100);
   assert.equal(s.coverage[0].accuracyPct, 100);
   assert.equal(s.perClass[0].topLane, 'bodyshop');
   assert.equal(s.mismatch[0].fraudRatePct, 100);
