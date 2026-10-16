@@ -64,6 +64,8 @@ export async function startServer({ port = 0, apiKey = process.env.JEV_API_KEY, 
   }
   const server = createServer(async (req, res) => {
     try {
+      const ownHosts = [`localhost:${server.address().port}`, `127.0.0.1:${server.address().port}`];
+      if (!ownHosts.includes(req.headers.host) || (req.method === 'POST' && req.headers.origin && !ownHosts.some(host => req.headers.origin === `http://${host}`))) return error(res, 403, 'Forbidden origin or host');
       let path;
       try { path = new URL(req.url, 'http://localhost').pathname; } catch { return error(res, 404, 'Not found'); }
       if (req.method === 'GET' && path === '/api/claims') return send(res, 200, claims.map(({ id, customer, vehicle, description, photo, result, latencyMs, costUsd }) => ({ id, customer, vehicle, description, photo, result, latencyMs, costUsd })));

@@ -111,3 +111,28 @@ test('503 has a message and does not call Jev', async t => {
   const { request, stub } = await fixture(t, { apiKey: '' }); const res = await request('/api/claims/CLM-2401/triage', 'POST');
   assert.equal(res.status, 503); assert.deepEqual(await res.json(), { error: 'Jev API key unavailable' }); assert.equal(stub.calls.length, 0);
 });
+
+test('foreign Origin cannot triage, same Origin can', async t => {
+  const { app, stub } = await fixture(t);
+  const path = '/api/claims/CLM-2401/triage';
+  const request = origin => fetch(app.url + path, { method: 'POST', headers: { Origin: origin } });
+  const denied = await request('https://evil.example');
+  assert.equal(denied.status, 403);
+  assert.ok((await denied.json()).error);
+  assert.equal(stub.calls.length, 0);
+  assert.equal((await request(app.url)).status, 200);
+  assert.equal(stub.calls.length, 1);
+});
+
+test('foreign Host is rejected before routing', async t => {
+  const { app, stub } = await fixture(t);
+  const res = await new Promise((resolve, reject) => {
+    const req = httpRequest(app.url + '/api/claims/CLM-2401/triage', { method: 'POST', headers: { Host: 'evil.example' } }, response => {
+      const chunks = []; response.on('data', chunk => chunks.push(chunk)); response.on('end', () => resolve({ status: response.statusCode, body: JSON.parse(Buffer.concat(chunks).toString()) }));
+    });
+    req.on('error', reject); req.end();
+  });
+  assert.equal(res.status, 403);
+  assert.ok(res.body.error);
+  assert.equal(stub.calls.length, 0);
+});

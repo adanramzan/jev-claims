@@ -32,7 +32,7 @@ Open http://localhost:5181. `JEV_BUDGET` defaults to $1.50. Spend is tracked in 
 
 The [first held-out run](reports/eval-2026-10-16T00-42-45.573Z.md) used story templates naming parts such as “door” and “windscreen.” The match question checks the part, and 40% of genuine claims went to fraud. The templates were changed to part-neutral stories before the final run. Real customer stories name parts, so the match and fraud signal needs tuning on real data.
 
-The evaluation images come from the CarDD-derived Hugging Face dataset `gigwegbe/damaged-car-dataset-annotated`. Its licence is unclear, so the images are not redistributed. `npm run eval:fetch` downloads them into gitignored `eval/data/`.
+The evaluation images come from the CarDD-derived Hugging Face dataset `gigwegbe/damaged-car-dataset-annotated`. Its licence is unclear, so the images are not redistributed. `npm run eval:fetch` downloads them into gitignored `eval/data/`. Dataset fetching is macOS only (uses sips). To reproduce the saved reports, run `npm run eval -- --demo` for the bundled claims or `npm run eval -- --limit N` for N fetched held-out images; both require `JEV_API_KEY`.
 
 ## How routing works
 
@@ -51,7 +51,7 @@ The first matching rule wins:
 - `POST /api/claims` creates and triages a claim from `{ customer?, vehicle?, description, photoBase64, format: "jpeg" | "png" }`. Description is 1–500 characters and image data is limited to 1.5 MB base64. Uploaded photos are held in memory and served at `/api/photos/:id`.
 - `POST /api/reset` clears results and uploaded claims, but keeps the spend ledger.
 
-Triage responses include the result, latency, cost, and total spend. Jev errors return 502; exhausted budget returns 402.
+Triage responses include the result, latency, cost, and total spend. Jev errors return 502; exhausted budget returns 402. Requests with a foreign Host, or POSTs with a foreign Origin, return 403. An upload interrupted by reset returns 409.
 
 ## Project layout
 

@@ -12,6 +12,8 @@ const dimensions = file => {
   return [Number(output.match(/pixelWidth: (\d+)/)?.[1]), Number(output.match(/pixelHeight: (\d+)/)?.[1])];
 };
 export async function fetchDataset() {
+  try { execFileSync('sips', ['--help'], { stdio: 'ignore' }); }
+  catch { throw new Error('eval:fetch requires macOS only (uses sips); sips was not found'); }
   await mkdir(dataDir, { recursive: true });
   const counts = Object.fromEntries(CLASSES.map(cls => [cls, 0]));
   const meta = [];

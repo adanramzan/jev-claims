@@ -33,10 +33,19 @@ test('triage all routes 23 claims once and shows a real photo box', async t => {
 });
 
 test('budget exhaustion appears inline and queue remains usable', async t => {
-  const { page } = await fixture(t, { budgetUsd: .0001 });
+  const { page, stub } = await fixture(t, { budgetUsd: .0001 });
   await page.getByTestId('triage-all').click();
   await page.getByTestId('decision').getByText('Jev budget exhausted').waitFor();
   assert.equal(await page.getByTestId('claim-row').count(), 23);
+  assert.equal(stub.calls.length, 1);
+});
+
+test('missing key stops triage all after one error', async t => {
+  const { page, stub } = await fixture(t, { apiKey: '' });
+  await page.getByTestId('triage-all').click();
+  await page.getByTestId('decision').getByText('Jev API key unavailable').waitFor();
+  assert.equal(await page.locator('.status.error').count(), 1);
+  assert.equal(stub.calls.length, 0);
 });
 
 test('new photo claim is triaged and reset clears the board', async t => {

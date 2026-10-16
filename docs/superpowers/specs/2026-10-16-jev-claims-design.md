@@ -10,7 +10,7 @@
 |---|---|
 | `core/jev.mjs` | Jev client with budget guard (copied from jev-desk), `LANES`, `claimQuestions()`, `route(answers)` |
 | `server.mjs` | Node `http` server, port 5181: static `app/`, claims API, calls Jev, spend ledger |
-| `app/` | Single-page claims desk: `index.html`, `app.js`, `styles.css`, `img/` (22 CC photos + `CREDITS.md`) |
+| `app/` | Single-page claims desk: `index.html`, `app.js`, `styles.css`, `img/` (23 CC photos + `CREDITS.md`) |
 | `data/claims.json` | 23 demo claims: `{ id, customer, vehicle, description, photo, expected: { damage, route } }` |
 | `eval/fetch.mjs`, `eval/run.mjs` | Held-out eval on a public car-damage dataset; writes `reports/eval-*.md` and `.json` |
 | `test/` | `node --test`; never calls the real Jev (stub server) |

@@ -1,13 +1,13 @@
 const LANES = [['fasttrack', 'Fast-track estimate'], ['glass', 'Glass partner'], ['roadside', 'Roadside assist'], ['bodyshop', 'Body shop'], ['totalloss', 'Total-loss desk'], ['fraud', 'Fraud check'], ['adjuster', 'Adjuster review']];
 const $ = selector => document.querySelector(selector);
-let claims = [], selected, spent = 0, busy = false, justTriaged;
+let claims = [], selected, spent = 0, busy = false, justTriaged, runId = 0;
 const errors = new Map();
 const fast = new URLSearchParams(location.search).has('fast');
 
 async function api(path, options) {
   const response = await fetch(path, options);
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || 'Request failed');
+  if (!response.ok) { const error = new Error(data.error || 'Request failed'); error.status = response.status; throw error; }
   return data;
 }
 function el(tag, className, value) {
@@ -50,6 +50,7 @@ function render() {
     const story = el('div', 'story'); story.append(el('small', '', 'CUSTOMER STORY'), el('p', '', `“${current.description}”`)); detail.append(wrap, story);
   }
   const decision = $('#decision'); decision.replaceChildren();
+  decision.className = 'panel decision';
   if (errors.has(current?.id)) decision.append(el('div', 'inline-error', errors.get(current.id)));
   else if (current?.result) {
     const result = current.result;
@@ -67,23 +68,29 @@ function render() {
     lanes.append(lane);
   }
 }
-async function triage(claim) {
+async function triage(claim, run) {
   try {
     const data = await api(`/api/claims/${encodeURIComponent(claim.id)}/triage`, { method: 'POST' });
+    if (run !== runId) return;
     Object.assign(claim, data); spent = data.spentUsd; errors.delete(claim.id); justTriaged = claim.id;
-  } catch (error) { errors.set(claim.id, error.message); }
+  } catch (error) { if (run !== runId) return; errors.set(claim.id, error.message); selected = claim.id; render(); return error.status; }
   selected = claim.id; render();
 }
 $('#triage-all').onclick = async () => {
   if (busy) return;
-  busy = true; $('#triage-all').disabled = true;
-  try { for (const claim of claims.filter(claim => !claim.result)) { await triage(claim); if (!fast) await new Promise(resolve => setTimeout(resolve, 1200)); } }
-  finally { busy = false; $('#triage-all').disabled = false; }
+  busy = true; const run = ++runId; $('#triage-all').disabled = true;
+  try { for (const claim of claims.filter(claim => !claim.result)) {
+    if (run !== runId) break;
+    const status = await triage(claim, run);
+    if (run !== runId || status === 402 || status === 503) break;
+    if (!fast) await new Promise(resolve => setTimeout(resolve, 1200));
+  } } finally { busy = false; $('#triage-all').disabled = false; }
 };
 $('#reset').onclick = async () => {
-  if (busy) return;
+  ++runId; busy = false; const button = $('#reset'); button.disabled = true; const label = button.textContent; button.textContent = 'Resetting…';
   try { const data = await api('/api/reset', { method: 'POST' }); claims = await api('/api/claims'); spent = data.spentUsd; errors.clear(); selected = claims[0]?.id; render(); }
   catch (error) { errors.set(selected, error.message); render(); }
+  finally { button.disabled = false; button.textContent = label; }
 };
 $('#new-claim-form').onsubmit = async event => {
   event.preventDefault();
@@ -97,7 +104,7 @@ $('#new-claim-form').onsubmit = async event => {
     const photoBase64 = canvas.toDataURL('image/jpeg', .85).split(',')[1];
     const data = await api('/api/claims', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ description: form.description.value, photoBase64, format: 'jpeg' }) });
     claims.push({ ...data.claim, result: data.result, latencyMs: data.latencyMs, costUsd: data.costUsd }); spent = data.spentUsd; selected = data.claim.id; errors.delete('form'); form.reset(); render();
-  } catch (error) { errors.set('form', error.message); const decision = $('#decision'); decision.replaceChildren(el('div', 'inline-error', error.message)); }
+  } catch (error) { const decision = $('#decision'); decision.replaceChildren(el('div', 'inline-error', error.message)); }
   finally { button.disabled = false; }
 };
 try { claims = await api('/api/claims'); selected = claims[0]?.id; render(); }

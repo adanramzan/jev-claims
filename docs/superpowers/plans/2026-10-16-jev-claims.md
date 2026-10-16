@@ -14,7 +14,7 @@
 
 - No runtime dependencies. Dev dependency: `playwright` only.
 - Tests never call the real Jev; use a local stub http server. `npm test` must pass offline.
-- Never read `~/.ragbench/jev.env` or use a real key in tests.
+- Never read `your env file` or use a real key in tests.
 - ESM `.mjs`, 2-space indent, small files, no frameworks, no TypeScript.
 - Commit after each task with a conventional message.
 
@@ -31,7 +31,7 @@
 ### Task 1: core (`core/jev.mjs`, `test/core.test.mjs`, `package.json`)
 
 **Interfaces — Produces:**
-- `createJev({ apiKey, baseUrl, model, budgetUsd, spentUsd, onSpend, fetchImpl, sleep })` → `{ spent(), ask({ state, questions, assets }) → { answers, usage, latencyMs, model } }`, `BudgetError`, `JevError`, `MODEL`, `PRICE_PER_INPUT_TOKEN`: copy verbatim from `/Users/adanramzan/Documents/Projects/jev-projects/jev-desk/core/jev.mjs` lines 1–5 and 17–56 (drop the helpdesk-specific CATEGORIES, screenshotState, triageQuestions, markQuestion, decide).
+- `createJev({ apiKey, baseUrl, model, budgetUsd, spentUsd, onSpend, fetchImpl, sleep })` → `{ spent(), ask({ state, questions, assets }) → { answers, usage, latencyMs, model } }`, `BudgetError`, `JevError`, `MODEL`, `PRICE_PER_INPUT_TOKEN`: copy verbatim from `../jev-desk/core/jev.mjs` lines 1–5 and 17–56 (drop the helpdesk-specific CATEGORIES, screenshotState, triageQuestions, markQuestion, decide).
 - `LANES`: array of `[key, label]` in spec order.
 - `THRESHOLDS`, `claimQuestions()`, `route(answers, t = THRESHOLDS)` exactly as the spec.
 - `package.json`: `"type": "module"`, scripts `test: node --test test/*.test.mjs`, `start: node server.mjs`, `eval: node eval/run.mjs`, `eval:fetch: node eval/fetch.mjs`; devDependency `playwright` same version as jev-desk (`^1.64.1`).
