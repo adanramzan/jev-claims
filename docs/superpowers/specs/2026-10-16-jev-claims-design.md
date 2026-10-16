@@ -61,7 +61,7 @@ Thresholds were set on the 23 demo claims (22/23 routed as labelled). The README
 
 ## Server API
 
-- `GET /api/claims` → demo claims without `expected`, plus any triage result already cached: `[{ id, customer, vehicle, description, photo, result? }]`
+- `GET /api/claims` → demo claims without `expected`, plus any triage result already cached: `[{ id, customer, vehicle, description, photo, result?, latencyMs?, costUsd? }]` (`latencyMs`/`costUsd` are present once triaged; the UI shows them)
 - `POST /api/claims/:id/triage` → runs Jev on that claim (photo read from `app/`), caches and returns `{ result, latencyMs, costUsd, spentUsd }`. Second call returns the cached result without calling Jev. Unknown id → 404.
 - `POST /api/claims` with JSON `{ customer?, vehicle?, description, photoBase64, format: 'jpeg'|'png' }` → creates `CLM-<next>` (photo kept in memory, served at `/api/photos/:id`), triages it, returns `{ claim, result, latencyMs, costUsd, spentUsd }`. Description required (1–500 chars), photo required, ≤ 1.5 MB base64 → else 400 with `{ error }`.
 - `POST /api/reset` → clears cached results and uploaded claims (spend ledger kept).

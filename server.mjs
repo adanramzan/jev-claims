@@ -1,11 +1,11 @@
 import { createServer } from 'node:http';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createJev, BudgetError, JevError, claimQuestions, route, PRICE_PER_INPUT_TOKEN } from './core/jev.mjs';
 
 const projectRoot = dirname(fileURLToPath(import.meta.url));
-const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
+const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
 const error = (res, status, message) => send(res, status, { error: message });
 function send(res, status, data, type = 'application/json') {
   res.writeHead(status, { 'content-type': type });
@@ -28,30 +28,46 @@ export async function startServer({ port = 0, apiKey = process.env.JEV_API_KEY, 
   const original = JSON.parse(await readFile(resolve(root, 'data/claims.json'), 'utf8'));
   let claims = original.map(({ expected, ...claim }) => claim);
   const uploads = new Map(), pending = new Map();
+  let generation = 0, nextId = Math.max(...original.map(c => Number(c.id.match(/^CLM-(\d+)$/)?.[1]) || 0)) + 1;
   let spentUsd = 0;
-  try { spentUsd = JSON.parse(await readFile(ledgerPath, 'utf8')).spentUsd || 0; } catch (e) { if (e.code !== 'ENOENT') throw e; }
-  const jev = createJev({ apiKey, baseUrl, budgetUsd, spentUsd, onSpend: async total => writeFile(ledgerPath, JSON.stringify({ spentUsd: total })) });
+  try {
+    const saved = JSON.parse(await readFile(ledgerPath, 'utf8')).spentUsd;
+    if (!Number.isFinite(saved) || saved < 0) throw new Error('spentUsd missing or invalid');
+    spentUsd = saved;
+  } catch (e) { if (e.code !== 'ENOENT') console.warn(`Unreadable spend ledger ${ledgerPath} (${e.message}); starting at $0`); }
+  // Serialised, atomic ledger writes; a failed write is logged, never lets a paid Jev result be lost.
+  let ledger = Promise.resolve();
+  const onSpend = total => ledger = ledger.then(async () => { await writeFile(`${ledgerPath}.tmp`, JSON.stringify({ spentUsd: total })); await rename(`${ledgerPath}.tmp`, ledgerPath); }).catch(e => console.warn(`Could not write spend ledger: ${e.message}`));
+  const jev = createJev({ apiKey, baseUrl, budgetUsd, spentUsd, onSpend });
+  // ponytail: one Jev call at a time so the budget check always sees the latest spend; add a reservation if throughput ever matters.
+  let queue = Promise.resolve();
+  const serial = fn => { const run = queue.then(fn); queue = run.catch(() => {}); return run; };
   async function triage(claim) {
-    if (claim.result) return { result: claim.result, latencyMs: claim.latencyMs, costUsd: claim.costUsd, spentUsd: jev.spent() };
-    if (pending.has(claim.id)) return pending.get(claim.id);
-    const work = (async () => {
-      const photo = uploads.get(claim.id);
-      const bytes = photo?.bytes || await readFile(resolve(appRoot, claim.photo));
-      const format = photo?.format || (extname(claim.photo).toLowerCase() === '.png' ? 'png' : 'jpeg');
-      const reply = await jev.ask({ state: { photo: 'p', claim: claim.description }, assets: { p: { type: 'image', format, data_base64: bytes.toString('base64') } }, questions: claimQuestions() });
-      claim.result = route(reply.answers);
-      claim.latencyMs = reply.latencyMs;
-      claim.costUsd = (reply.usage?.input_tokens ?? 5000) * PRICE_PER_INPUT_TOKEN;
-      return { result: claim.result, latencyMs: claim.latencyMs, costUsd: claim.costUsd, spentUsd: jev.spent() };
-    })();
-    pending.set(claim.id, work);
-    try { return await work; } finally { pending.delete(claim.id); }
+    const done = () => ({ result: claim.result, latencyMs: claim.latencyMs, costUsd: claim.costUsd, spentUsd: jev.spent() });
+    if (claim.result) return done();
+    let work = pending.get(claim.id);
+    if (!work) {
+      work = (async () => {
+        const photo = uploads.get(claim.id);
+        const bytes = photo?.bytes || await readFile(resolve(appRoot, claim.photo));
+        const format = photo?.format || (extname(claim.photo).toLowerCase() === '.png' ? 'png' : 'jpeg');
+        const reply = await serial(() => jev.ask({ state: { photo: 'p', claim: claim.description }, assets: { p: { type: 'image', format, data_base64: bytes.toString('base64') } }, questions: claimQuestions() }));
+        return { result: route(reply.answers), latencyMs: reply.latencyMs, costUsd: (reply.usage?.input_tokens ?? 5000) * PRICE_PER_INPUT_TOKEN };
+      })();
+      pending.set(claim.id, work);
+      const clear = () => { if (pending.get(claim.id) === work) pending.delete(claim.id); };
+      work.then(clear, clear);
+    }
+    const out = await work;
+    if (!claim.result) Object.assign(claim, out);
+    return done();
   }
   const server = createServer(async (req, res) => {
     try {
-      const path = new URL(req.url, 'http://localhost').pathname;
-      if (req.method === 'GET' && path === '/api/claims') return send(res, 200, claims);
-      if (req.method === 'POST' && path === '/api/reset') { claims = original.map(({ expected, ...claim }) => claim); uploads.clear(); pending.clear(); return send(res, 200, { ok: true, spentUsd: jev.spent() }); }
+      let path;
+      try { path = new URL(req.url, 'http://localhost').pathname; } catch { return error(res, 404, 'Not found'); }
+      if (req.method === 'GET' && path === '/api/claims') return send(res, 200, claims.map(({ id, customer, vehicle, description, photo, result, latencyMs, costUsd }) => ({ id, customer, vehicle, description, photo, result, latencyMs, costUsd })));
+      if (req.method === 'POST' && path === '/api/reset') { generation++; claims = original.map(({ expected, ...claim }) => claim); uploads.clear(); return send(res, 200, { ok: true, spentUsd: jev.spent() }); }
       const triageId = /^\/api\/claims\/([^/]+)\/triage$/.exec(path)?.[1];
       if (req.method === 'POST' && triageId) {
         const claim = claims.find(c => c.id === triageId);
@@ -61,19 +77,27 @@ export async function startServer({ port = 0, apiKey = process.env.JEV_API_KEY, 
       }
       if (req.method === 'POST' && path === '/api/claims') {
         const input = await body(req);
-        if (typeof input.description !== 'string' || !input.description.trim() || input.description.length > 500) return error(res, 400, 'Description must be 1–500 characters');
+        if (!input || typeof input !== 'object') return error(res, 400, 'JSON object required');
+        const description = typeof input.description === 'string' ? input.description.trim() : '';
+        if (!description || description.length > 500) return error(res, 400, 'Description must be 1–500 characters');
+        for (const key of ['customer', 'vehicle']) if (input[key] !== undefined && (typeof input[key] !== 'string' || input[key].trim().length > 80)) return error(res, 400, `${key} must be a string of up to 80 characters`);
         const bytes = photoBytes(input.photoBase64, input.format);
         if (!apiKey) return error(res, 503, 'Jev API key unavailable');
-        const next = Math.max(...claims.map(c => Number(c.id.match(/^CLM-(\d+)$/)?.[1]) || 0)) + 1;
-        const claim = { id: `CLM-${next}`, customer: input.customer || 'New customer', vehicle: input.vehicle || 'Unknown vehicle', description: input.description.trim(), photo: `api/photos/CLM-${next}` };
-        uploads.set(claim.id, { bytes, format: input.format });
-        try { const result = await triage(claim); claims.push(claim); return send(res, 200, { claim, ...result }); }
-        catch (e) { uploads.delete(claim.id); throw e; }
+        const id = `CLM-${nextId++}`, startedIn = generation;
+        const claim = { id, customer: input.customer?.trim() || 'New customer', vehicle: input.vehicle?.trim() || 'Unknown vehicle', description, photo: `api/photos/${id}` };
+        uploads.set(id, { bytes, format: input.format });
+        try {
+          const result = await triage(claim);
+          if (startedIn !== generation) return error(res, 409, 'Desk was reset during upload');
+          claims.push(claim); return send(res, 200, { claim, ...result });
+        } catch (e) { if (startedIn === generation) uploads.delete(id); throw e; }
       }
       const photoId = /^\/api\/photos\/([^/]+)$/.exec(path)?.[1];
       if (req.method === 'GET' && photoId) { const photo = uploads.get(photoId); return photo ? send(res, 200, photo.bytes, `image/${photo.format}`) : error(res, 404, 'Photo not found'); }
       if (req.method !== 'GET' || path.startsWith('/api/')) return error(res, 404, 'Not found');
-      const relative = decodeURIComponent(req.url.split('?')[0]);
+      let relative;
+      try { relative = decodeURIComponent(req.url.split('?')[0]); } catch { return error(res, 404, 'Not found'); }
+      if (relative.includes('\0')) return error(res, 404, 'Not found');
       const file = resolve(appRoot, '.' + (relative === '/' ? '/index.html' : relative));
       if (!file.startsWith(appRoot + sep)) return error(res, 404, 'Not found');
       try { return send(res, 200, await readFile(file), mime[extname(file)] || 'application/octet-stream'); } catch (e) { if (e.code === 'ENOENT' || e.code === 'EISDIR') return error(res, 404, 'Not found'); throw e; }

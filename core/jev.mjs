@@ -4,7 +4,7 @@ export class JevError extends Error {
   constructor(message, status) { super(message); this.status = status; }
 }
 
-export function createJev({ apiKey, baseUrl = 'https://api.typesafe.ai', model = MODEL, budgetUsd, spentUsd = 0, onSpend = () => {}, fetchImpl = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) }) {
+export function createJev({ apiKey, baseUrl, model = MODEL, budgetUsd, spentUsd = 0, onSpend = () => {}, fetchImpl = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) }) {
   if (typeof budgetUsd !== 'number' || !Number.isFinite(budgetUsd) || budgetUsd <= 0) throw new Error('budgetUsd must be a finite positive number');
   return {
     spent: () => spentUsd,
@@ -14,7 +14,7 @@ export function createJev({ apiKey, baseUrl = 'https://api.typesafe.ai', model =
       let data;
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
-          const response = await fetchImpl(`${baseUrl.replace(/\/$/, '')}/v1/systemone`, {
+          const response = await fetchImpl(`${(baseUrl || 'https://api.typesafe.ai').replace(/\/$/, '')}/v1/systemone`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${apiKey}`, 'content-type': 'application/json', 'TypeSafe-Danger-Zone-Images': 'true' },
             body: JSON.stringify({ model, state, questions, assets }),
