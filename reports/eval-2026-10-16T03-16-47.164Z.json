@@ -1,0 +1,578 @@
+{
+  "date": "2026-10-16T03:16:47.164Z",
+  "model": "jev-1.14.0",
+  "demo": true,
+  "summary": {
+    "n": 23,
+    "correct": 22,
+    "accuracyPct": 95.65217391304348,
+    "boxHitPct": 0,
+    "coverage": [
+      {
+        "threshold": 0.6,
+        "n": 21,
+        "coveragePct": 91.30434782608695,
+        "accuracyPct": 95.23809523809524
+      },
+      {
+        "threshold": 0.8,
+        "n": 19,
+        "coveragePct": 82.6086956521739,
+        "accuracyPct": 94.73684210526316
+      },
+      {
+        "threshold": 0.9,
+        "n": 17,
+        "coveragePct": 73.91304347826087,
+        "accuracyPct": 94.11764705882354
+      }
+    ],
+    "perClass": [
+      {
+        "cls": "glass",
+        "n": 5,
+        "correct": 5,
+        "accuracyPct": 100,
+        "topLane": "glass"
+      },
+      {
+        "cls": "tyre",
+        "n": 3,
+        "correct": 3,
+        "accuracyPct": 100,
+        "topLane": "roadside"
+      },
+      {
+        "cls": "cosmetic",
+        "n": 5,
+        "correct": 5,
+        "accuracyPct": 100,
+        "topLane": "fasttrack"
+      },
+      {
+        "cls": "collision",
+        "n": 6,
+        "correct": 5,
+        "accuracyPct": 83.33333333333333,
+        "topLane": "bodyshop"
+      },
+      {
+        "cls": "total_loss",
+        "n": 2,
+        "correct": 2,
+        "accuracyPct": 100,
+        "topLane": "totalloss"
+      },
+      {
+        "cls": "none",
+        "n": 2,
+        "correct": 2,
+        "accuracyPct": 100,
+        "topLane": "fraud"
+      }
+    ],
+    "mismatch": [
+      {
+        "matched": false,
+        "n": 0,
+        "fraudRatePct": 0
+      },
+      {
+        "matched": true,
+        "n": 23,
+        "fraudRatePct": 17.391304347826086
+      }
+    ],
+    "latencyP50Ms": 669.650791,
+    "latencyP95Ms": 968.5593339999996,
+    "costUsd": 0.01744705200000002,
+    "total": 23,
+    "costPer1000Usd": 0.7585674782608703,
+    "damageAccuracyPct": 86.95652173913044
+  },
+  "rows": [
+    {
+      "id": "CLM-2401",
+      "cls": "glass",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.99,
+        "match": 0.7,
+        "stock": 0.43
+      },
+      "damage": "glass",
+      "confidence": 0.98,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 950.3902919999999,
+      "costUsd": 0.0007231139999999969,
+      "inputTokens": 17217
+    },
+    {
+      "id": "CLM-2402",
+      "cls": "tyre",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 1.16,
+        "match": 0.64,
+        "stock": 0.1
+      },
+      "damage": "tyre",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 796.7129999999999,
+      "costUsd": 0.0008670480000000091,
+      "inputTokens": 20644
+    },
+    {
+      "id": "CLM-2403",
+      "cls": "cosmetic",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.13,
+        "match": 0.94,
+        "stock": 0.12
+      },
+      "damage": "cosmetic",
+      "confidence": 0.96,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 525.397708,
+      "costUsd": 0.0008133720000000066,
+      "inputTokens": 19366
+    },
+    {
+      "id": "CLM-2404",
+      "cls": "collision",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.36,
+        "match": 0.93,
+        "stock": 0.11
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 817.3942080000002,
+      "costUsd": 0.000721140000000009,
+      "inputTokens": 17170
+    },
+    {
+      "id": "CLM-2405",
+      "cls": "collision",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo looks like a stock image",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.69,
+        "match": 0.79,
+        "stock": 0.98
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 544.9305420000001,
+      "costUsd": 0.0006595679999999993,
+      "inputTokens": 15704
+    },
+    {
+      "id": "CLM-2406",
+      "cls": "glass",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.01,
+        "match": 0.95,
+        "stock": 0.24
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 668.5133340000002,
+      "costUsd": 0.0007230300000000134,
+      "inputTokens": 17215
+    },
+    {
+      "id": "CLM-2407",
+      "cls": "cosmetic",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.71,
+        "match": 0.8,
+        "stock": 0.06
+      },
+      "damage": "cosmetic",
+      "confidence": 0.72,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 880.2512079999997,
+      "costUsd": 0.0008303819999999906,
+      "inputTokens": 19771
+    },
+    {
+      "id": "CLM-2408",
+      "cls": "collision",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.17,
+        "match": 0.9,
+        "stock": 0.23
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 727.5186249999997,
+      "costUsd": 0.0008668799999999866,
+      "inputTokens": 20640
+    },
+    {
+      "id": "CLM-2409",
+      "cls": "tyre",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 2.02,
+        "match": 0.57,
+        "stock": 0.18
+      },
+      "damage": "tyre",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 618.9676659999996,
+      "costUsd": 0.0007768740000000107,
+      "inputTokens": 18497
+    },
+    {
+      "id": "CLM-2410",
+      "cls": "total_loss",
+      "matched": true,
+      "lane": "totalloss",
+      "reason": "Car is wrecked",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.91,
+        "match": 0.84,
+        "stock": 0.3
+      },
+      "damage": "collision",
+      "confidence": 0.83,
+      "correct": true,
+      "damageCorrect": false,
+      "boxHit": null,
+      "latencyMs": 780.18775,
+      "costUsd": 0.0007768320000000051,
+      "inputTokens": 18496
+    },
+    {
+      "id": "CLM-2411",
+      "cls": "none",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 0.61,
+        "match": 0.09,
+        "stock": 0.36
+      },
+      "damage": "cosmetic",
+      "confidence": 0.46,
+      "correct": true,
+      "damageCorrect": false,
+      "boxHit": null,
+      "latencyMs": 669.650791,
+      "costUsd": 0.0006911520000000004,
+      "inputTokens": 16456
+    },
+    {
+      "id": "CLM-2412",
+      "cls": "cosmetic",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.21,
+        "match": 0.91,
+        "stock": 0.76
+      },
+      "damage": "cosmetic",
+      "confidence": 0.94,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 647.6423339999992,
+      "costUsd": 0.0007766220000000046,
+      "inputTokens": 18491
+    },
+    {
+      "id": "CLM-2413",
+      "cls": "collision",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.34,
+        "match": 0.87,
+        "stock": 0.51
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 657.3684169999997,
+      "costUsd": 0.0007571339999999926,
+      "inputTokens": 18027
+    },
+    {
+      "id": "CLM-2414",
+      "cls": "glass",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.06,
+        "match": 0.84,
+        "stock": 0.31
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 968.5593339999996,
+      "costUsd": 0.0007229039999999964,
+      "inputTokens": 17212
+    },
+    {
+      "id": "CLM-2415",
+      "cls": "cosmetic",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.4,
+        "match": 0.89,
+        "stock": 0.18
+      },
+      "damage": "cosmetic",
+      "confidence": 0.96,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 620.3908330000013,
+      "costUsd": 0.0009376080000000064,
+      "inputTokens": 22324
+    },
+    {
+      "id": "CLM-2416",
+      "cls": "collision",
+      "matched": true,
+      "lane": "totalloss",
+      "reason": "Car is wrecked",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.83,
+        "match": 0.71,
+        "stock": 0.58
+      },
+      "damage": "collision",
+      "confidence": 0.98,
+      "correct": false,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 1019.3536249999997,
+      "costUsd": 0.0007229039999999964,
+      "inputTokens": 17212
+    },
+    {
+      "id": "CLM-2417",
+      "cls": "glass",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.16,
+        "match": 0.04,
+        "stock": 0.23
+      },
+      "damage": "glass",
+      "confidence": 0.96,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 532.4732920000006,
+      "costUsd": 0.0006060180000000137,
+      "inputTokens": 14429
+    },
+    {
+      "id": "CLM-2418",
+      "cls": "tyre",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 0.5,
+        "match": 0.29,
+        "stock": 0.47
+      },
+      "damage": "tyre",
+      "confidence": 0.89,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 684.3532080000004,
+      "costUsd": 0.0007767059999999881,
+      "inputTokens": 18493
+    },
+    {
+      "id": "CLM-2419",
+      "cls": "cosmetic",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.31,
+        "match": 0.64,
+        "stock": 0.23
+      },
+      "damage": "cosmetic",
+      "confidence": 0.94,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 584.3759170000012,
+      "costUsd": 0.0007228619999999908,
+      "inputTokens": 17211
+    },
+    {
+      "id": "CLM-2420",
+      "cls": "collision",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.3,
+        "match": 0.88,
+        "stock": 0.16
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 593.0645420000001,
+      "costUsd": 0.000708330000000007,
+      "inputTokens": 16865
+    },
+    {
+      "id": "CLM-2421",
+      "cls": "total_loss",
+      "matched": true,
+      "lane": "totalloss",
+      "reason": "Car is wrecked",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.81,
+        "match": 0.56,
+        "stock": 0.29
+      },
+      "damage": "collision",
+      "confidence": 0.77,
+      "correct": true,
+      "damageCorrect": false,
+      "boxHit": null,
+      "latencyMs": 788.609375,
+      "costUsd": 0.0007765379999999933,
+      "inputTokens": 18489
+    },
+    {
+      "id": "CLM-2422",
+      "cls": "glass",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.23,
+        "match": 0.77,
+        "stock": 0.2
+      },
+      "damage": "glass",
+      "confidence": 0.99,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 615.489458,
+      "costUsd": 0.0006596520000000106,
+      "inputTokens": 15706
+    },
+    {
+      "id": "CLM-2423",
+      "cls": "none",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "none",
+        "severity": 0.33,
+        "match": 0.09,
+        "stock": 0.26
+      },
+      "damage": "none",
+      "confidence": 0.59,
+      "correct": true,
+      "damageCorrect": true,
+      "boxHit": null,
+      "latencyMs": 802.7151670000003,
+      "costUsd": 0.0008303819999999906,
+      "inputTokens": 19771
+    }
+  ]
+}
