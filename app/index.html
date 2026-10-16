@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jev Claims</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div><strong class="brand">Jev<span> Claims</span></strong><p>First notice of loss · triage desk</p></div>
+    <div class="stats"><div><b id="count-claims">0</b><small>Claims</small></div><div data-testid="counter-triaged"><b id="count-triaged">0</b><small>Triaged</small></div><div><b id="count-auto">0%</b><small>Auto routed</small></div><div><b id="count-spend">$0.0000</b><small>Spend</small></div></div>
+    <button id="reset" data-testid="reset" class="quiet">Reset</button>
+  </header>
+  <main>
+    <aside class="queue panel"><div class="panel-head"><div><small>INBOX</small><h2>Claims queue</h2></div><button id="triage-all" data-testid="triage-all">Triage all</button></div><div id="queue-list"></div></aside>
+    <section class="detail"><div id="claim-detail" class="panel"></div><div id="decision" data-testid="decision" class="panel decision"></div></section>
+    <aside class="new panel"><small>NEW INTAKE</small><h2>New claim</h2><form id="new-claim-form" data-testid="new-claim-form"><label for="description">Customer's story</label><textarea id="description" name="description" maxlength="500" required placeholder="What happened to the car?"></textarea><label for="photo">Damage photo</label><input id="photo" name="photo" type="file" accept="image/*" required><button type="submit">Submit claim</button></form></aside>
+    <section class="board panel"><div class="panel-head"><div><small>ROUTING</small><h2>Lane board</h2></div><span>Live decisions</span></div><div id="lanes" class="lanes"></div></section>
+  </main>
+</body>
+</html>
