@@ -70,3 +70,7 @@ Triage responses include the result, latency, cost, and total spend. Jev errors 
 ## Credits
 
 Demo photos are Creative Commons images via Openverse; see [photo credits](app/img/CREDITS.md). The visual language draws on the [Mercury `DESIGN.md` in VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (MIT), a community analysis unaffiliated with Mercury. This project is unaffiliated with TypeSafe.
+
+## License
+
+Code is MIT, see [LICENSE](LICENSE). Bundled photos keep their own Creative Commons licences listed in [app/img/CREDITS.md](app/img/CREDITS.md).

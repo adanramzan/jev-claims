@@ -3,3 +3,4 @@ node_modules/
 eval/data/
 .superpowers/
 media/raw/
+.DS_Store
