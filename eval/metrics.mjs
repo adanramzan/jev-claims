@@ -1,10 +1,11 @@
 export const CLASSES = ['dent', 'scratch', 'crack', 'glass shatter', 'lamp broken', 'tire flat'];
+// Part-neutral on purpose: the dataset doesn't say which part is damaged, and the match question checks the part.
 const STORIES = {
-  dent: 'A parking bump left a dent in my car door.',
-  scratch: 'Someone scratched the side of my car.',
-  crack: 'A collision cracked the body panel of my car.',
-  'glass shatter': 'My windscreen shattered after a stone hit it.',
-  'lamp broken': 'The impact broke my headlight.',
+  dent: 'My car got dented in a minor bump.',
+  scratch: 'Someone scratched the paint on my car.',
+  crack: 'A part of my car cracked in a small collision.',
+  'glass shatter': 'Glass on my car got shattered.',
+  'lamp broken': 'One of the lights on my car got broken.',
   'tire flat': 'My car has a flat tyre and cannot drive.'
 };
 export function routeFamily(cls) {

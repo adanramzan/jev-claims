@@ -1,0 +1,1354 @@
+{
+  "date": "2026-10-16T00:42:45.573Z",
+  "model": "jev-1.14.0",
+  "demo": false,
+  "summary": {
+    "n": 40,
+    "correct": 20,
+    "accuracyPct": 50,
+    "boxHitPct": 46.666666666666664,
+    "coverage": [
+      {
+        "threshold": 0.6,
+        "n": 37,
+        "coveragePct": 92.5,
+        "accuracyPct": 54.054054054054056
+      },
+      {
+        "threshold": 0.8,
+        "n": 35,
+        "coveragePct": 87.5,
+        "accuracyPct": 57.142857142857146
+      },
+      {
+        "threshold": 0.9,
+        "n": 30,
+        "coveragePct": 75,
+        "accuracyPct": 53.333333333333336
+      }
+    ],
+    "perClass": [
+      {
+        "cls": "crack",
+        "n": 7,
+        "correct": 6,
+        "accuracyPct": 85.71428571428571,
+        "topLane": "bodyshop"
+      },
+      {
+        "cls": "glass shatter",
+        "n": 7,
+        "correct": 3,
+        "accuracyPct": 42.857142857142854,
+        "topLane": "glass"
+      },
+      {
+        "cls": "tire flat",
+        "n": 7,
+        "correct": 4,
+        "accuracyPct": 57.142857142857146,
+        "topLane": "roadside"
+      },
+      {
+        "cls": "dent",
+        "n": 7,
+        "correct": 0,
+        "accuracyPct": 0,
+        "topLane": "fraud"
+      },
+      {
+        "cls": "scratch",
+        "n": 7,
+        "correct": 5,
+        "accuracyPct": 71.42857142857143,
+        "topLane": "fasttrack"
+      },
+      {
+        "cls": "lamp broken",
+        "n": 5,
+        "correct": 2,
+        "accuracyPct": 40,
+        "topLane": "fraud"
+      }
+    ],
+    "mismatch": [
+      {
+        "matched": false,
+        "n": 20,
+        "fraudRatePct": 75
+      },
+      {
+        "matched": true,
+        "n": 40,
+        "fraudRatePct": 40
+      }
+    ],
+    "latencyP50Ms": 634.5512079999971,
+    "latencyP95Ms": 909.2353750000002,
+    "costUsd": 0.041999663999999964,
+    "total": 60,
+    "costPer1000Usd": 0.6999943999999995
+  },
+  "rows": [
+    {
+      "id": "crack-0.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "adjuster",
+      "reason": "Not sure what the damage is",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.1,
+        "match": 0.48,
+        "stock": 0.28
+      },
+      "damage": "collision",
+      "confidence": 0.44,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 880.212,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "glass_shatter-1.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "adjuster",
+      "reason": "Not sure what the damage is",
+      "answers": {
+        "damage": "tyre",
+        "severity": 2.13,
+        "match": 0.85,
+        "stock": 0.35
+      },
+      "damage": "tyre",
+      "confidence": 0.38,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 885.0051659999999,
+      "costUsd": 0.0006593160000000001,
+      "inputTokens": 15698
+    },
+    {
+      "id": "tire_flat-2.jpg",
+      "cls": "tire flat",
+      "matched": false,
+      "lane": "adjuster",
+      "reason": "Not sure what the damage is",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.07,
+        "match": 0.51,
+        "stock": 0.26
+      },
+      "damage": "collision",
+      "confidence": 0.41,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 869.9460419999998,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "tire_flat-3.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 2.21,
+        "match": 0.95,
+        "stock": 0.31
+      },
+      "damage": "tyre",
+      "confidence": 0.84,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 746.0919169999997,
+      "costUsd": 0.0006592740000000014,
+      "inputTokens": 15697
+    },
+    {
+      "id": "dent-4.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.44,
+        "match": 0.17,
+        "stock": 0.49
+      },
+      "damage": "cosmetic",
+      "confidence": 0.78,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 679.6990409999999,
+      "costUsd": 0.0007569239999999991,
+      "inputTokens": 18022
+    },
+    {
+      "id": "scratch-5.jpg",
+      "cls": "scratch",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.55,
+        "match": 0.16,
+        "stock": 0.41
+      },
+      "damage": "cosmetic",
+      "confidence": 0.66,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 834.5944170000002,
+      "costUsd": 0.0007079940000000035,
+      "inputTokens": 16857
+    },
+    {
+      "id": "scratch-6.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.23,
+        "match": 0.76,
+        "stock": 0.51
+      },
+      "damage": "cosmetic",
+      "confidence": 0.98,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 707.9453750000002,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "scratch-7.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.23,
+        "match": 0.76,
+        "stock": 0.48
+      },
+      "damage": "cosmetic",
+      "confidence": 0.98,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 643.1919170000001,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "scratch-8.jpg",
+      "cls": "scratch",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.23,
+        "match": 0.13,
+        "stock": 0.15
+      },
+      "damage": "cosmetic",
+      "confidence": 0.82,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 546.6593330000005,
+      "costUsd": 0.0007079940000000035,
+      "inputTokens": 16857
+    },
+    {
+      "id": "scratch-9.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.25,
+        "match": 0.92,
+        "stock": 0.13
+      },
+      "damage": "cosmetic",
+      "confidence": 0.99,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 577.29925,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "scratch-10.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.24,
+        "match": 0.93,
+        "stock": 0.13
+      },
+      "damage": "cosmetic",
+      "confidence": 0.98,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 693.4434580000006,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "scratch-11.jpg",
+      "cls": "scratch",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.48,
+        "match": 0.17,
+        "stock": 0.09
+      },
+      "damage": "cosmetic",
+      "confidence": 0.74,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 560.0707499999999,
+      "costUsd": 0.0007420979999999966,
+      "inputTokens": 17669
+    },
+    {
+      "id": "scratch-12.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fasttrack",
+      "reason": "Minor body damage",
+      "answers": {
+        "damage": "cosmetic",
+        "severity": 1.24,
+        "match": 0.71,
+        "stock": 0.11
+      },
+      "damage": "cosmetic",
+      "confidence": 0.93,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 649.4142499999998,
+      "costUsd": 0.0006908580000000025,
+      "inputTokens": 16449
+    },
+    {
+      "id": "dent-13.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.13,
+        "match": 0.17,
+        "stock": 0.71
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 873.7592080000013,
+      "costUsd": 0.0007569239999999991,
+      "inputTokens": 18022
+    },
+    {
+      "id": "dent-14.jpg",
+      "cls": "dent",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.23,
+        "match": 0.03,
+        "stock": 0.56
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 584.3743340000001,
+      "costUsd": 0.0006593160000000001,
+      "inputTokens": 15698
+    },
+    {
+      "id": "scratch-15.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.34,
+        "match": 0.13,
+        "stock": 0.46
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 585.0619999999999,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "crack-16.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.18,
+        "match": 0.72,
+        "stock": 0.54
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 681.0889999999999,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "lamp_broken-17.jpg",
+      "cls": "lamp broken",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.32,
+        "match": 0.17,
+        "stock": 0.43
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 626.0417500000003,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "dent-18.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.26,
+        "match": 0.04,
+        "stock": 0.43
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 685.1691249999985,
+      "costUsd": 0.0007569239999999991,
+      "inputTokens": 18022
+    },
+    {
+      "id": "dent-19.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.28,
+        "match": 0.04,
+        "stock": 0.45
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 631.4457080000011,
+      "costUsd": 0.0007569239999999991,
+      "inputTokens": 18022
+    },
+    {
+      "id": "dent-20.jpg",
+      "cls": "dent",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.27,
+        "match": 0.03,
+        "stock": 0.4
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 475.1762089999993,
+      "costUsd": 0.0006593160000000001,
+      "inputTokens": 15698
+    },
+    {
+      "id": "scratch-21.jpg",
+      "cls": "scratch",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.36,
+        "match": 0.09,
+        "stock": 0.3
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 479.8922500000008,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "crack-23.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.2,
+        "match": 0.64,
+        "stock": 0.35
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 587.6914160000015,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "lamp_broken-24.jpg",
+      "cls": "lamp broken",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.35,
+        "match": 0.08,
+        "stock": 0.34
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 598.9424579999995,
+      "costUsd": 0.000659189999999997,
+      "inputTokens": 15695
+    },
+    {
+      "id": "dent-25.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.2,
+        "match": 0.11,
+        "stock": 0.18
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 547.4256250000017,
+      "costUsd": 0.0008300040000000022,
+      "inputTokens": 19762
+    },
+    {
+      "id": "dent-26.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.22,
+        "match": 0.17,
+        "stock": 0.17
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 583.3870830000014,
+      "costUsd": 0.0008300040000000022,
+      "inputTokens": 19762
+    },
+    {
+      "id": "dent-27.jpg",
+      "cls": "dent",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.17,
+        "match": 0.02,
+        "stock": 0.37
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 561.4058750000004,
+      "costUsd": 0.0007226519999999972,
+      "inputTokens": 17206
+    },
+    {
+      "id": "lamp_broken-28.jpg",
+      "cls": "lamp broken",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.24,
+        "match": 0.9,
+        "stock": 0.19
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 613.0776669999977,
+      "costUsd": 0.0007762019999999967,
+      "inputTokens": 18481
+    },
+    {
+      "id": "dent-29.jpg",
+      "cls": "dent",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.04,
+        "match": 0.16,
+        "stock": 0.16
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 612.6624590000029,
+      "costUsd": 0.0007569239999999991,
+      "inputTokens": 18022
+    },
+    {
+      "id": "lamp_broken-31.jpg",
+      "cls": "lamp broken",
+      "matched": false,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.08,
+        "match": 0.25,
+        "stock": 0.13
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 634.5512079999971,
+      "costUsd": 0.0006591900000000039,
+      "inputTokens": 15695
+    },
+    {
+      "id": "lamp_broken-33.jpg",
+      "cls": "lamp broken",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.96,
+        "match": 0.25,
+        "stock": 0.54
+      },
+      "damage": "collision",
+      "confidence": 0.98,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 867.4849170000016,
+      "costUsd": 0.0007079940000000035,
+      "inputTokens": 16857
+    },
+    {
+      "id": "tire_flat-34.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.88,
+        "match": 0.1,
+        "stock": 0.46
+      },
+      "damage": "collision",
+      "confidence": 0.95,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 555.5937080000003,
+      "costUsd": 0.0006592740000000014,
+      "inputTokens": 15697
+    },
+    {
+      "id": "tire_flat-35.jpg",
+      "cls": "tire flat",
+      "matched": false,
+      "lane": "adjuster",
+      "reason": "Not sure what the damage is",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.17,
+        "match": 0.54,
+        "stock": 0.78
+      },
+      "damage": "collision",
+      "confidence": 0.53,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 593.6807079999999,
+      "costUsd": 0.0006739739999999939,
+      "inputTokens": 16047
+    },
+    {
+      "id": "tire_flat-36.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "adjuster",
+      "reason": "Not sure what the damage is",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.33,
+        "match": 0.92,
+        "stock": 0.56
+      },
+      "damage": "collision",
+      "confidence": 0.52,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 662.463499999998,
+      "costUsd": 0.0006276060000000028,
+      "inputTokens": 14943
+    },
+    {
+      "id": "tire_flat-37.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 2.26,
+        "match": 0.95,
+        "stock": 0.38
+      },
+      "damage": "tyre",
+      "confidence": 0.84,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 1579.942667000003,
+      "costUsd": 0.0006276060000000028,
+      "inputTokens": 14943
+    },
+    {
+      "id": "lamp_broken-40.jpg",
+      "cls": "lamp broken",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.62,
+        "match": 0.18,
+        "stock": 0.36
+      },
+      "damage": "collision",
+      "confidence": 0.92,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 593.6251669999983,
+      "costUsd": 0.0006591900000000039,
+      "inputTokens": 15695
+    },
+    {
+      "id": "tire_flat-41.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.56,
+        "match": 0.95,
+        "stock": 0.43
+      },
+      "damage": "collision",
+      "confidence": 0.68,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 1423.3827500000007,
+      "costUsd": 0.0006592740000000014,
+      "inputTokens": 15697
+    },
+    {
+      "id": "lamp_broken-44.jpg",
+      "cls": "lamp broken",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.88,
+        "match": 0.09,
+        "stock": 0.25
+      },
+      "damage": "collision",
+      "confidence": 0.93,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 572.8621249999997,
+      "costUsd": 0.0007079940000000035,
+      "inputTokens": 16857
+    },
+    {
+      "id": "crack-45.jpg",
+      "cls": "crack",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.8,
+        "match": 0.04,
+        "stock": 0.43
+      },
+      "damage": "collision",
+      "confidence": 0.83,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 492.97149999999965,
+      "costUsd": 0.0006592740000000014,
+      "inputTokens": 15697
+    },
+    {
+      "id": "crack-46.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.81,
+        "match": 0.81,
+        "stock": 0.29
+      },
+      "damage": "collision",
+      "confidence": 0.83,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 515.9447499999987,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "crack-51.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.01,
+        "match": 0.63,
+        "stock": 0.45
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 909.2353750000002,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "crack-52.jpg",
+      "cls": "crack",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.78,
+        "match": 0.03,
+        "stock": 0.76
+      },
+      "damage": "collision",
+      "confidence": 0.95,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 572.348582999999,
+      "costUsd": 0.0007226099999999985,
+      "inputTokens": 17205
+    },
+    {
+      "id": "glass_shatter-53.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.79,
+        "match": 0.94,
+        "stock": 0.37
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 579.6466250000012,
+      "costUsd": 0.0006593159999999931,
+      "inputTokens": 15698
+    },
+    {
+      "id": "crack-55.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.1,
+        "match": 0.72,
+        "stock": 0.45
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 627.6517500000009,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    },
+    {
+      "id": "lamp_broken-56.jpg",
+      "cls": "lamp broken",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 2.21,
+        "match": 0.11,
+        "stock": 0.43
+      },
+      "damage": "collision",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 728.5190829999992,
+      "costUsd": 0.0006591900000000039,
+      "inputTokens": 15695
+    },
+    {
+      "id": "glass_shatter-58.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.14,
+        "match": 0.88,
+        "stock": 0.16
+      },
+      "damage": "glass",
+      "confidence": 0.88,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 553.6730410000018,
+      "costUsd": 0.0006593159999999931,
+      "inputTokens": 15698
+    },
+    {
+      "id": "crack-66.jpg",
+      "cls": "crack",
+      "matched": true,
+      "lane": "bodyshop",
+      "reason": "Collision damage",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.91,
+        "match": 0.82,
+        "stock": 0.14
+      },
+      "damage": "collision",
+      "confidence": 0.94,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 718.9756249999991,
+      "costUsd": 0.000776286000000001,
+      "inputTokens": 18483
+    },
+    {
+      "id": "crack-67.jpg",
+      "cls": "crack",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.8,
+        "match": 0.03,
+        "stock": 0.16
+      },
+      "damage": "collision",
+      "confidence": 0.92,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 715.4616249999999,
+      "costUsd": 0.0007226099999999985,
+      "inputTokens": 17205
+    },
+    {
+      "id": "lamp_broken-68.jpg",
+      "cls": "lamp broken",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.6,
+        "match": 0.06,
+        "stock": 0.22
+      },
+      "damage": "collision",
+      "confidence": 0.99,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 1050.1675840000025,
+      "costUsd": 0.0007420979999999966,
+      "inputTokens": 17669
+    },
+    {
+      "id": "lamp_broken-70.jpg",
+      "cls": "lamp broken",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "collision",
+        "severity": 1.57,
+        "match": 0.08,
+        "stock": 0.19
+      },
+      "damage": "collision",
+      "confidence": 0.9,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 647.4756659999985,
+      "costUsd": 0.0007079940000000035,
+      "inputTokens": 16857
+    },
+    {
+      "id": "glass_shatter-80.jpg",
+      "cls": "glass shatter",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.88,
+        "match": 0.03,
+        "stock": 0.18
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 801.9090829999986,
+      "costUsd": 0.0008300039999999953,
+      "inputTokens": 19762
+    },
+    {
+      "id": "glass_shatter-81.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.85,
+        "match": 0.88,
+        "stock": 0.35
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 533.6622500000012,
+      "costUsd": 0.0006593159999999931,
+      "inputTokens": 15698
+    },
+    {
+      "id": "glass_shatter-82.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.13,
+        "match": 0.12,
+        "stock": 0.15
+      },
+      "damage": "glass",
+      "confidence": 0.84,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 691.3537910000014,
+      "costUsd": 0.0005643119999999974,
+      "inputTokens": 13436
+    },
+    {
+      "id": "glass_shatter-83.jpg",
+      "cls": "glass shatter",
+      "matched": false,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "glass",
+        "severity": 2.15,
+        "match": 0.13,
+        "stock": 0.58
+      },
+      "damage": "glass",
+      "confidence": 0.89,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 888.7946660000016,
+      "costUsd": 0.0008300039999999953,
+      "inputTokens": 19762
+    },
+    {
+      "id": "glass_shatter-84.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.67,
+        "match": 0.05,
+        "stock": 0.45
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 615.6676249999946,
+      "costUsd": 0.0006593159999999931,
+      "inputTokens": 15698
+    },
+    {
+      "id": "glass_shatter-85.jpg",
+      "cls": "glass shatter",
+      "matched": true,
+      "lane": "fraud",
+      "reason": "Photo doesn't show the damage described",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.91,
+        "match": 0.17,
+        "stock": 0.33
+      },
+      "damage": "glass",
+      "confidence": 1,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 491.8474170000045,
+      "costUsd": 0.0006593159999999931,
+      "inputTokens": 15698
+    },
+    {
+      "id": "glass_shatter-89.jpg",
+      "cls": "glass shatter",
+      "matched": false,
+      "lane": "glass",
+      "reason": "Glass damage",
+      "answers": {
+        "damage": "glass",
+        "severity": 1.92,
+        "match": 0.25,
+        "stock": 0.63
+      },
+      "damage": "glass",
+      "confidence": 0.99,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 699.3305839999957,
+      "costUsd": 0.000756924000000006,
+      "inputTokens": 18022
+    },
+    {
+      "id": "tire_flat-147.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 2.19,
+        "match": 0.92,
+        "stock": 0.28
+      },
+      "damage": "tyre",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 683.2743330000012,
+      "costUsd": 0.0006592740000000014,
+      "inputTokens": 15697
+    },
+    {
+      "id": "tire_flat-148.jpg",
+      "cls": "tire flat",
+      "matched": true,
+      "lane": "roadside",
+      "reason": "Tyre damage",
+      "answers": {
+        "damage": "tyre",
+        "severity": 1.95,
+        "match": 0.93,
+        "stock": 0.49
+      },
+      "damage": "tyre",
+      "confidence": 1,
+      "correct": true,
+      "damageCorrect": null,
+      "boxHit": true,
+      "latencyMs": 653.6196249999994,
+      "costUsd": 0.0007226099999999985,
+      "inputTokens": 17205
+    },
+    {
+      "id": "tire_flat-165.jpg",
+      "cls": "tire flat",
+      "matched": false,
+      "lane": "adjuster",
+      "reason": "Not sure what the damage is",
+      "answers": {
+        "damage": "tyre",
+        "severity": 2,
+        "match": 0.44,
+        "stock": 0.29
+      },
+      "damage": "tyre",
+      "confidence": 0.42,
+      "correct": false,
+      "damageCorrect": null,
+      "boxHit": false,
+      "latencyMs": 669.6252499999973,
+      "costUsd": 0.0007080780000000009,
+      "inputTokens": 16859
+    }
+  ]
+}
