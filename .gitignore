@@ -1,0 +1,5 @@
+node_modules/
+.jev-spend.json
+eval/data/
+.superpowers/
+media/raw/

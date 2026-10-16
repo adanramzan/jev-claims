@@ -1,0 +1,255 @@
+[
+ {
+  "id": "CLM-2401",
+  "customer": "Maya Chen",
+  "vehicle": "2015 Ford Focus",
+  "description": "A rock flew off a truck on the motorway and cracked my windscreen right across the driver side.",
+  "photo": "img/glass_shatter_3.jpg",
+  "expected": {
+   "damage": "glass",
+   "route": "glass"
+  }
+ },
+ {
+  "id": "CLM-2402",
+  "customer": "Daniel Okafor",
+  "vehicle": "1998 Cadillac DeVille",
+  "description": "Came out of the office and the front left tyre is completely flat. Car is in the staff car park.",
+  "photo": "img/tire_flat_0.jpg",
+  "expected": {
+   "damage": "tyre",
+   "route": "roadside"
+  }
+ },
+ {
+  "id": "CLM-2403",
+  "customer": "Sofia Rossi",
+  "vehicle": "2012 Honda Accord",
+  "description": "Someone scraped my rear bumper while parking at the supermarket. Just scratches, nothing broken.",
+  "photo": "img/d3_6.jpg",
+  "expected": {
+   "damage": "cosmetic",
+   "route": "fasttrack"
+  }
+ },
+ {
+  "id": "CLM-2404",
+  "customer": "James Patel",
+  "vehicle": "2001 Dodge Neon",
+  "description": "I skidded on a wet road and hit a pole. The front bumper and hood are smashed in and the headlight is broken.",
+  "photo": "img/d3_2.jpg",
+  "expected": {
+   "damage": "collision",
+   "route": "bodyshop"
+  }
+ },
+ {
+  "id": "CLM-2405",
+  "customer": "Victor Hale",
+  "vehicle": "2019 Hatchback",
+  "description": "Another driver ran a red light and hit the front of my car at the junction.",
+  "photo": "img/d2_1.jpg",
+  "expected": {
+   "damage": "collision",
+   "route": "fraud"
+  }
+ },
+ {
+  "id": "CLM-2406",
+  "customer": "Aisha Bello",
+  "vehicle": "2008 Toyota Corolla",
+  "description": "Came back to my car and the windscreen was smashed. Possibly vandalism overnight.",
+  "photo": "img/glass_shatter_9.jpg",
+  "expected": {
+   "damage": "glass",
+   "route": "glass"
+  }
+ },
+ {
+  "id": "CLM-2407",
+  "customer": "Lucas Martin",
+  "vehicle": "2004 Nissan Micra",
+  "description": "There is a dent in my passenger door, I think from a car door in the parking lot.",
+  "photo": "img/d4_7.jpg",
+  "expected": {
+   "damage": "cosmetic",
+   "route": "fasttrack"
+  }
+ },
+ {
+  "id": "CLM-2408",
+  "customer": "Emma Wilson",
+  "vehicle": "1996 Toyota Camry",
+  "description": "I was rear-ended at a stop sign. The rear bumper is torn off on one side.",
+  "photo": "img/d7_2.jpg",
+  "expected": {
+   "damage": "collision",
+   "route": "bodyshop"
+  }
+ },
+ {
+  "id": "CLM-2409",
+  "customer": "Noah Fischer",
+  "vehicle": "2016 Hyundai Elantra",
+  "description": "Tyre blew out on the highway, it is shredded. I am on the hard shoulder with the spare not fitted.",
+  "photo": "img/tire_flat_11.jpg",
+  "expected": {
+   "damage": "tyre",
+   "route": "roadside"
+  }
+ },
+ {
+  "id": "CLM-2410",
+  "customer": "Olivia Brown",
+  "vehicle": "2003 BMW 3 Series",
+  "description": "My car was in a serious crash, the front is completely destroyed and the windscreen is caved in.",
+  "photo": "img/d2_8.jpg",
+  "expected": {
+   "damage": "total_loss",
+   "route": "totalloss"
+  }
+ },
+ {
+  "id": "CLM-2411",
+  "customer": "Ryan Cole",
+  "vehicle": "2010 Proton Persona",
+  "description": "Hit-and-run last night, the rear of my car is badly damaged.",
+  "photo": "img/d4_9.jpg",
+  "expected": {
+   "damage": "none",
+   "route": "fraud"
+  }
+ },
+ {
+  "id": "CLM-2412",
+  "customer": "Chloe Dubois",
+  "vehicle": "2002 Mazda 626",
+  "description": "Scratches and scuffs on the rear bumper after I reversed into a bollard.",
+  "photo": "img/d5_0.jpg",
+  "expected": {
+   "damage": "cosmetic",
+   "route": "fasttrack"
+  }
+ },
+ {
+  "id": "CLM-2413",
+  "customer": "Hiro Tanaka",
+  "vehicle": "1985 Mercedes 300D",
+  "description": "Front-end collision at low speed. Grille, headlights and bumper are damaged.",
+  "photo": "img/d5_15.jpg",
+  "expected": {
+   "damage": "collision",
+   "route": "bodyshop"
+  }
+ },
+ {
+  "id": "CLM-2414",
+  "customer": "Grace Kim",
+  "vehicle": "2011 Chevrolet Aveo",
+  "description": "Hailstorm cracked the windscreen badly, I can barely see through it.",
+  "photo": "img/glass_shatter_5.jpg",
+  "expected": {
+   "damage": "glass",
+   "route": "glass"
+  }
+ },
+ {
+  "id": "CLM-2415",
+  "customer": "Ben Carter",
+  "vehicle": "2014 Subaru Outback",
+  "description": "Small dent on the front bumper next to the grille, the paint is chipped.",
+  "photo": "img/d5_16.jpg",
+  "expected": {
+   "damage": "cosmetic",
+   "route": "fasttrack"
+  }
+ },
+ {
+  "id": "CLM-2416",
+  "customer": "Fatima Zahra",
+  "vehicle": "2007 Lexus LS",
+  "description": "Head-on collision, the front of the car is crushed and the wheel is bent.",
+  "photo": "img/d7_13.jpg",
+  "expected": {
+   "damage": "collision",
+   "route": "bodyshop"
+  }
+ },
+ {
+  "id": "CLM-2417",
+  "customer": "Mark Evans",
+  "vehicle": "2005 Mazda 3",
+  "description": "I was rear-ended in traffic, my rear bumper and boot are dented.",
+  "photo": "img/glass_shatter_11.jpg",
+  "expected": {
+   "damage": "glass",
+   "route": "fraud"
+  }
+ },
+ {
+  "id": "CLM-2418",
+  "customer": "Priya Nair",
+  "vehicle": "2009 Saturn Ion",
+  "description": "Puncture on the rear tyre, I got the spare out but cannot get the wheel off.",
+  "photo": "img/tire_flat_4.jpg",
+  "expected": {
+   "damage": "tyre",
+   "route": "roadside"
+  }
+ },
+ {
+  "id": "CLM-2419",
+  "customer": "Tom Becker",
+  "vehicle": "1999 Toyota Previa",
+  "description": "Shallow dent beside the tail light, looks like someone reversed into it.",
+  "photo": "img/d6_7.jpg",
+  "expected": {
+   "damage": "cosmetic",
+   "route": "fasttrack"
+  }
+ },
+ {
+  "id": "CLM-2420",
+  "customer": "Laura Silva",
+  "vehicle": "2006 Skoda Fabia",
+  "description": "Hit a deer at night. The front bumper and headlight are smashed.",
+  "photo": "img/d7_11.jpg",
+  "expected": {
+   "damage": "collision",
+   "route": "bodyshop"
+  }
+ },
+ {
+  "id": "CLM-2421",
+  "customer": "Peter Novak",
+  "vehicle": "1978 Porsche 911",
+  "description": "The car rolled over, the roof is crushed and the front is torn open.",
+  "photo": "img/d7_6.jpg",
+  "expected": {
+   "damage": "total_loss",
+   "route": "totalloss"
+  }
+ },
+ {
+  "id": "CLM-2422",
+  "customer": "Ines Garcia",
+  "vehicle": "2010 Ford Fiesta",
+  "description": "Someone broke the glass to get into my car, there is broken glass all over the dashboard.",
+  "photo": "img/glass_shatter_10.jpg",
+  "expected": {
+   "damage": "glass",
+   "route": "glass"
+  }
+ },
+ {
+  "id": "CLM-2423",
+  "customer": "Owen Price",
+  "vehicle": "2001 Toyota Corolla Estate",
+  "description": "My car was sideswiped on the street, the whole driver side is scraped and dented.",
+  "photo": "img/none_2.jpg",
+  "expected": {
+   "damage": "none",
+   "route": "fraud"
+  }
+ }
+]
